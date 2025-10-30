@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIC TAC TOE</title>
+    <link rel="stylesheet" href="tictactoepr.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <h4>TIC TAC TOE</h4>
+
+        <!-- Winner Message Area -->
+        <div class="win-game hidden">
+            <p id="winner-msg">Winner</p>
+            <button id="new-game">New Game</button>
+        </div>
+
+        <!-- Game Area -->
+        <div class="container">
+            <div class="game-box">
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+            </div>
+
+            <!-- Reset Button (separated from game grid) -->
+            <button id="reset">Reset</button>
+        </div>
+    </main>
+
+    <script src="tictactoepr.js"></script>
+</body>
+</html>
