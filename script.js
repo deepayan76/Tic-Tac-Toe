@@ -1,70 +1,90 @@
-let box  = document.querySelectorAll(".box");
-let rsetbtn = document.querySelector("#reset");
-let container = document.querySelector(".win-game");
-let newgamebtn = document.querySelector("#new-game");
-let winmsg = document.querySelector("#winner-msg");
-let game = document.querySelector("main");
+const boxes = Array.from(document.querySelectorAll(".box"));
+const resetBtn = document.querySelector("#reset");
+const winContainer = document.querySelector(".win-game");
+const newGameBtn = document.querySelector("#new-game");
+const winMsg = document.querySelector("#winner-msg");
 
-let playero = true;
+let currentPlayer = "X";
 
-let winpattern = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const winPatterns = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
+];
 
-box.forEach((box)=>{
-    box.addEventListener("click", () =>{
-        if (playero) {
-            box.innerHTML = "X";
-            playero = false;
-        }
-        else {
-            box.innerHTML = "O";
-            playero = true;
-        }
-        box.disabled = true;
+function handleBoxClick(e) {
+  const btn = e.currentTarget;
+  if (btn.disabled) return;
 
-        chekwinner();
-    })
-});
+  btn.textContent = currentPlayer;
+  btn.disabled = true;
 
-let resetbtn = () =>{
-    for (let boxes of box) {
-        boxes.innerHTML = "";
-        boxes.disabled = false;
+  if (checkWinner()) return;
+
+  if (checkDraw()) {
+    showResult("It's a draw!");
+    return;
+  }
+
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+}
+
+function resetBoard() {
+  currentPlayer = "X";
+  boxes.forEach(b => {
+    b.textContent = "";
+    b.disabled = false;
+  });
+  hideResult();
+  // focus first cell for keyboard users
+  boxes[0]?.focus();
+}
+
+function startNewGame() {
+  resetBoard();
+}
+
+function showResult(message) {
+  winMsg.textContent = message;
+  winContainer.classList.remove("hidden");
+  winContainer.setAttribute("aria-hidden", "false");
+  winContainer.setAttribute("aria-live", "polite");
+  disableAllBoxes();
+}
+
+function hideResult() {
+  winContainer.classList.add("hidden");
+  winContainer.setAttribute("aria-hidden", "true");
+  winMsg.textContent = "";
+}
+
+function disableAllBoxes() {
+  boxes.forEach(b => b.disabled = true);
+}
+
+function checkWinner() {
+  for (const pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    const va = boxes[a].textContent;
+    const vb = boxes[b].textContent;
+    const vc = boxes[c].textContent;
+
+    if (va && va === vb && vb === vc) {
+      showResult(`Congratulations — ${va} wins!`);
+      return true;
     }
+  }
+  return false;
 }
 
-let newGamebtn = () =>{
-    container.classList.add("hidden");
-    resetbtn();
+function checkDraw() {
+  return boxes.every(b => b.textContent !== "");
 }
 
+/* Attach event listeners */
+boxes.forEach(b => b.addEventListener("click", handleBoxClick));
+resetBtn?.addEventListener("click", resetBoard);
+newGameBtn?.addEventListener("click", startNewGame);
 
-
-const newwinner = (winner) =>{
-    winmsg.innerHTML = `Congratulation Winner is ${winner}`;
-    container.classList.remove("hidden");
-    disabledbox();
-}
-
-const disabledbox = () =>{
-    for (let boxes of box) {
-        boxes.disabled = true;
-    }
-}
-
-const chekwinner= () =>{
-    for (let pattersn of winpattern) {
-        let pos1val = box[pattersn[0]].innerHTML;
-        let pos2val = box[pattersn[1]].innerHTML;
-        let pos3val = box[pattersn[2]].innerHTML; 
-
-        if (pos1val !== "" && pos2val !== "" && pos3val !== "") {
-            if (pos1val === pos2val && pos2val === pos3val) {
-                newwinner(pos1val);
-            }
-        }
-    }
-}
-
-rsetbtn.addEventListener("click", resetbtn);
-newgamebtn.addEventListener("click", newGamebtn);
-
+// Initialize accessibility state
+hideResult();
