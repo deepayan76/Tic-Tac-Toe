@@ -1,39 +1,51 @@
-# Tic-Tac-Toe
-🎮 A simple and responsive Tic Tac Toe game built using HTML, CSS, and JavaScript. Play against a friend in this classic 3x3 grid game directly in your browser.
-# 🎮 Tic Tac Toe Game
+# 🎮 Tic-Tac-Toe
 
-A simple and interactive **Tic Tac Toe** game built using **HTML, CSS, and JavaScript**.  
-Play against a friend and enjoy this classic game in your browser!
+A simple and interactive **Tic-Tac-Toe** game built using **HTML**, **CSS**, and **JavaScript**.  
+Play against your friends and test your logic skills in this classic game!
 
 ---
 
-## 🚀 Features
-- Simple and clean UI design  
-- Fully responsive for mobile and desktop  
-- Displays turn indicators and winning combinations  
-- Option to restart the game  
-
----
-
-## 🧠 How to Play
-1. The game is played on a 3×3 grid.  
-2. Player 1 uses **X**, and Player 2 uses **O**.  
-3. Players take turns marking empty squares.  
-4. The first player to align three of their marks (horizontally, vertically, or diagonally) wins!  
-5. If all squares are filled and no player has won, it’s a **draw**.  
-
----
-
-## 🧩 Tech Stack
-- **HTML** – Structure  
-- **CSS** – Styling  
+## 💻 Tech Stack
+- **HTML** – Structure of the webpage  
+- **CSS** – Styling and layout  
 - **JavaScript** – Game logic and interactivity  
 
 ---
 
-## 🕹 Live Demo
-👉 [Play the Game Here](https://deepayan76.github.io/tic-tac-toe/)
+## 🕹️ Live Demo
+👉 [Play the Game Here](https://deepayan76.github.io/Tic-Tac-Toe/)
 
 ---
 
 ## 📁 Project Structure
+
+---
+
+## 📸 Preview
+![Game Preview](https://github.com/deepayan76/Tic-Tac-Toe/blob/main/preview.png)
+
+---
+
+## 🚀 Features
+- Responsive game board  
+- Dynamic turn display  
+- Winner highlight animation  
+- Reset game option  
+
+---
+
+## 🧠 How to Play
+1. The game starts with Player X.  
+2. Players take turns clicking on the boxes to mark their symbol (X or O).  
+3. The first player to align three marks horizontally, vertically, or diagonally wins.  
+4. Click **Reset** to start a new game!
+
+---
+
+## 👨‍💻 Author
+**Deepayan Saha**  
+🌐 [GitHub Profile](https://github.com/deepayan76)
+
+---
+
+⭐ *If you like this project, consider giving it a star on GitHub!*
