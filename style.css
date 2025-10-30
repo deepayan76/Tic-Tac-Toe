@@ -1,3 +1,12 @@
+:root{
+    --bg: #9DD9D2;
+    --card: #fff3b0;
+    --accent: #000;
+    --radius: 2vh;
+    --shadow: 1px 1px 10px rgba(0,0,0,0.45);
+}
+
+/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -5,121 +14,181 @@
 }
 
 body {
-    background-color: #9DD9D2;
+    background-color: var(--bg);
     font-family: 'Fredoka', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 3vh 3vw;
+    justify-content: flex-start;
+    padding: clamp(12px, 3vh, 36px);
     min-height: 100vh;
     text-align: center;
 }
 
+/* Scalable heading */
 h4 {
-    font-size: 5vmin;
-    font-weight: bold;
-    margin-bottom: 2vh;
+    font-size: clamp(20px, 5vmin, 48px);
+    font-weight: 700;
+    margin: clamp(8px, 2vh, 24px) 0;
 }
 
+/* Container keeps a comfortable max width on large screens */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2vh;
+    gap: clamp(8px, 2vh, 24px);
     width: 100%;
-    max-width: 90vmin;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 12px;
 }
 
+/* Game area wrapper to center the board and controls */
+.game-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(10px, 2vh, 18px);
+}
+
+/* Grid: responsive width, keep square ratio and centered */
 .game-box {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2vmin;
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Makes it a square grid */
+    gap: clamp(8px, 1.6vmin, 14px);
+    width: min(72vmin, 520px); /* responsive maximum size */
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto; /* ensure centered */
 }
 
+/* Boxes are true touch-friendly buttons, centered content */
 .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    aspect-ratio: 1 / 1; /* Makes each box a square */
-    font-size: 6vmin;
+    aspect-ratio: 1 / 1;
+    font-size: clamp(26px, 7vmin, 72px);
     font-family: 'Fredoka', sans-serif;
     border: none;
-    box-shadow: 1px 1px 10px black;
-    border-radius: 2vh;
-    background-color: #fff3b0;
+    box-shadow: var(--shadow);
+    border-radius: min(16px, var(--radius));
+    background-color: var(--card);
     color: black;
     cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .08s ease, box-shadow .12s ease, background-color .12s ease;
+    touch-action: manipulation;
+    padding: 0.5rem;
 }
 
-#reset, #new-game {
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 2vh;
-    font-family: 'Fredoka', sans-serif;
-    cursor: pointer;
-    padding: 1vmin 2vmin;
-    margin-top: 1vh;
+/* Smaller touch feedback */
+.box:active {
+    transform: scale(0.98);
 }
 
-#reset {
-    font-size: 4vmin;
-    width: 50vmin;
-    max-width: 90%;
-    height: auto;
+/* Disabled state for non-clickable boxes */
+.box[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-#new-game {
-    font-size: 3vmin;
-    width: 20vmin;
-    max-width: 90%;
-    height: auto;
-}
-
-.win-game {
+/* Controls area styling (moved from inline) */
+.controls {
+    width: 100%;
+    display: flex;
+    gap: 12px;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2vh;
+    justify-content: center;
+}
+
+/* Buttons styling - responsive widths */
+#reset, #new-game {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Fredoka', sans-serif;
+    cursor: pointer;
+    padding: clamp(8px, 1.5vmin, 14px) clamp(10px, 2vmin, 20px);
+    transition: transform .08s ease, opacity .12s ease, box-shadow .12s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* Make primary reset button prominent and adaptive */
+#reset {
+    font-size: clamp(16px, 4vmin, 20px);
+    width: clamp(160px, 48%, 420px);
+    max-width: 100%;
+    height: auto;
+}
+
+/* Secondary button smaller */
+#new-game {
+    font-size: clamp(14px, 3vmin, 18px);
+    width: clamp(120px, 34%, 260px);
+    max-width: 100%;
+    height: auto;
+}
+
+#reset:active, #new-game:active {
+    transform: translateY(1px) scale(0.997);
+}
+
+/* Win banner layout */
+.win-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: clamp(6px, 2vh, 20px);
 }
 
 .win-game p {
-    font-size: 5vmin;
-    font-weight: bold;
+    font-size: clamp(18px, 5vmin, 36px);
+    font-weight: 700;
 }
 
+/* Hidden utility */
 .hidden{
-    display: none;
+    display: none !important;
 }
 
+/* Focus styles for keyboard accessibility */
+.box:focus-visible, #reset:focus-visible, #new-game:focus-visible {
+    outline: 3px solid rgba(0,0,0,0.12);
+    outline-offset: 3px;
+}
 
-/* 📱 Responsive Tweaks */
-@media (max-width: 500px) {
-    h4 {
-        font-size: 6vmin;
+/* Responsive tweaks for narrow screens */
+@media (max-width: 600px) {
+    .game-box {
+        width: min(86vmin, 360px);
+        gap: clamp(6px, 2vmin, 10px);
     }
 
     .box {
-        font-size: 8vmin;
+        font-size: clamp(26px, 10vmin, 56px);
+        border-radius: 12px;
     }
 
     #reset, #new-game {
-        width: 20vmin;
-        font-size: 3vmin;
+        width: 100%;
+        max-width: 100%;
     }
 
-    .game-box {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1vmin;
+    .container {
+        padding: 0 10px;
     }
+}
 
-    .win-game {
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 1vw;
-    }
-
-    .win-game p {
-        font-size: 7vmin;
-    }
+/* Landscape/large screens: keep center and limit max width */
+@media (min-width: 1200px) {
+    .container { max-width: 900px; }
+    .game-box { width: min(58vmin, 640px); }
 }
